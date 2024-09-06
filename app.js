@@ -54,6 +54,7 @@ app.post("/register", async (req, res) => {
         await User.create({
             username, email, password: hasedPassword
         })
+        res.json({staus:"login Successfull"})
         res.send({ status: "User Created Successfully" })
     } catch (error) {
         console.log({ "Error Response": error })
