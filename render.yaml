@@ -2,7 +2,7 @@ services:
   - type: web
     name: my-app
     env: node
-    buildCommand: npm install
+    buildCommand: npm install && chmod +x ./node_modules/.bin/nodemon
     startCommand: npm start
     envVars:
       - key: PORT
