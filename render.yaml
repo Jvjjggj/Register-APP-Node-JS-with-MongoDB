@@ -2,5 +2,10 @@ services:
   - type: web
     name: my-app
     env: node
-    buildCommand: npm install && chmod +x ./node_modules/.bin/nodemon
+    buildCommand: npm install
     startCommand: npm start
+    envVars:
+      - key: PORT
+        value: '3010'
+      - key: DATABASE_URL
+        value: 'mongodb+srv://Jak:Sjakeer201@cluster0.5y48ina.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
