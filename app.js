@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 const app = express()
 const cors = require("cors")
 const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const key = 'jwt_token'
 
 app.use(cors())
@@ -13,9 +13,7 @@ app.use(express.urlencoded({ extended: false })) // getting data from index.ejs
 app.set("view engine", "ejs")      // To get react in node
 const mongourl = "mongodb+srv://Jak:Sjakeer201@cluster0.5y48ina.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
-mongoose.connect(mongourl, {
-    useNewUrlParser: true
-}).then(() => { console.log("Mongoose Connected") }).catch((e) => console.log(e))
+mongoose.connect(mongourl).then(() => { console.log("Mongoose Connected") }).catch((e) => console.log(e))
 
 
 app.use(express.json())
