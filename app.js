@@ -110,7 +110,7 @@ app.post("/forget-password", async (req, res) => {
         }
         const secret = key + oldUser.password
         const token = jwt.sign({ email: oldUser.email, id: oldUser.id }, secret, { expiresIn: "30m" })
-        const link = `http://localhost:3010/reset-password/${oldUser._id}/${token}`
+        const link = `https://register-app-node-js-with-mongodb-cbrm.onrender.com/reset-password/${oldUser._id}/${token}`
         console.log(link)
         res.send({ link })
 
