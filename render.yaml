@@ -2,5 +2,5 @@ services:
   - type: web
     name: my-app
     env: node
-    buildCommand: npm install && chmod -R 755 node_modules
+    buildCommand: npm install && chmod +x ./node_modules/.bin/nodemon
     startCommand: npm start
