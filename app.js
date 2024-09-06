@@ -1,4 +1,5 @@
 const express = require("express")
+require('dotenv').config();
 const mongoose = require("mongoose")
 const nodemailer = require('nodemailer');
 const app = express()
@@ -19,7 +20,9 @@ mongoose.connect(mongourl, {
 
 app.use(express.json())
 
-app.listen(3010, () => {
+const port = process.env.PORT || 3010;
+
+app.listen(port, () => {
     console.log("Server Started")
 })
 
