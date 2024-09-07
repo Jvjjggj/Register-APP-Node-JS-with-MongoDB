@@ -164,10 +164,7 @@ app.post('/reset-password/:id/:token', async (req, res) => {
     const { id, token } = req.params
     const { password, confirmpassword } = req.body
 
-    if (password !== confirmpassword) {
-        res.json({ status: "both passwords are to be same" })
-        return
-    }
+    
 
     try {
         const oldUser = await User.findOne({ _id: id })
