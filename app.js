@@ -10,7 +10,7 @@ const key = 'jwt_token'
 
 app.use(cors())
 app.use(express.urlencoded({ extended: false })) // getting data from index.ejs
-app.set("view engine", "ejs")      // To get react in node
+app.set("view engine", "ejs")      // To get html index.ejs in node
 const mongourl = "mongodb+srv://Jak:Sjakeer201@cluster0.5y48ina.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 mongoose.connect(mongourl).then(() => { console.log("Mongoose Connected") }).catch((e) => console.log(e))
@@ -43,7 +43,7 @@ const User = mongoose.model("UserInfo")
 app.post("/register", async (req, res) => {
 
     try {
-        const { username, email, password } = req.body
+        const { username, email, password,userType } = req.body
         const hasedPassword = await bcrypt.hash(password, 10)
         console.log(hasedPassword)
         const oldUser = await User.findOne({ email })
@@ -52,25 +52,26 @@ app.post("/register", async (req, res) => {
             return
         }
         await User.create({
-            username, email, password: hasedPassword
+            username, email, password: hasedPassword,userType
         })
         res.send({ status: "User Created Successfully" })
     } catch (error) {
-        console.log({ "Error Response": error })
+        res.send({status:"error occur"})
     }
 })
 
 app.post("/login", async (req, res) => {
     const { email, password } = req.body
+    
     const oldUser = await User.findOne({ email })
-    if (oldUser == null) {
+    if (oldUser === null) {
         res.send({ status: "User Not Found" })
         return
     }
     if (await bcrypt.compare(password, oldUser.password)) {
         const token = jwt.sign({ email }, key, { expiresIn: "10m" })
         if (res.status(201)) {
-            console.log(token)
+            console.log(oldUser)
             return res.send({ status: "Login Successfully", token })
 
         } else {
@@ -190,5 +191,14 @@ app.post('/reset-password/:id/:token', async (req, res) => {
 
     } catch (error) {
         res.send({ error })
+    }
+})
+
+app.get("/get-all-users",async(req,res)=>{
+    try {
+        const allUsers=await User.find({})
+        res.send({staus:"ok",data:allUsers})
+    } catch (error) {
+        console.log(error)
     }
 })
