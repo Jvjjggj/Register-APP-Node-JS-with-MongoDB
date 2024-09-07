@@ -11,6 +11,17 @@
                 window.location.href="https://register-reactt-app-using-mongodb.onrender.com/login"
             }
         }
+        let passwordId=document.getElementById("password")
+        let confirmPass=document.getElementById("confirmPassword")
+        let paraId=document.getElementById("errorPara")
+        let btnId=document.getElementById("submitBtn")
+
+        btnId.addEventListener("click",()=>{
+            if(passwordId!==confirmPass){
+                paraId.textContent="Both Passwords must be same"
+            }
+        })
+
     </script>
 </head>
 <body>
@@ -18,8 +29,9 @@
     <form style="display: flex; flex-direction:column; justify-content:center;align-items:center;" action="" method="post">
         <h1><%=email%></h1>
         <input type="password" placeholder="password" name="password" id="password"/>
-        <input type="password" placeholder="confirm-password" name="confirmpassword" id="confirm-password"/>
-        <input type="submit" value="submit"/>
+        <input type="password" placeholder="confirm-password" name="confirmpassword" id="confirmPassword"/>
+        <p style="color: red;" id="errorPara"></p>
+        <input type="submit" id="submitBtn" value="submit"/>
     </form>
 </body>
 </html>
